@@ -19,12 +19,13 @@ model.add(Dense(y.shape[1], activation='relu'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 model.fit(x_train, y_train, epochs=10, batch_size=128)
+model.save('model.h5')
 
 df = pd.DataFrame(model.predict(x_test))
-df.to_csv('prediction.csv', sep=';')
-y_test.to_csv('y_true.csv', sep=';')
+df.to_csv('prediction.csv')
+y_test.to_csv('y_true.csv')
 df = y_test - df
-df.to_csv('result.csv', sep=';')
+df.to_csv('result.csv')
 accuracy = []
 for column in df.columns:
     accuracy.append(sum(df[column])/max(df[column]))
